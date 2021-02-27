@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
+import { useState } from 'react';
 import '../components/StyleGeneral.css';
 import SyncAltIcon from '@material-ui/icons/SyncAlt';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -7,7 +8,14 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
 export default function ChoixFilmButton(props) {
-    
+
+    const [iconeFav, setIconeFav] = useState(false);
+
+    function handleFavButton (){
+      setIconeFav(!iconeFav);
+      props.handleFavorite(iconeFav)
+    }
+
     return (
         <div className="choixFilm">
           <Button
@@ -19,8 +27,8 @@ export default function ChoixFilmButton(props) {
           <Button
             className='btnChoisFilmFav'
             type="button" 
-            onClick={()=>props.handleFavorite()}>
-                <FavoriteBorderIcon/>
+            onClick={()=>handleFavButton()}>
+               { iconeFav ? <FavoriteIcon/> : <FavoriteBorderIcon/>}
           </Button>
           <Button
             className='btnChoisFilm'
