@@ -1,7 +1,6 @@
 import { Favorite } from '@material-ui/icons';
 import { useState, useEffect } from 'react';
 import ChoixFilmButton from "../components/ChoixFilmsButton.js";
-import InfoBtn from '../components/InfoBtn';
 
 const RandomCards = (props) => {
 
@@ -10,17 +9,18 @@ const RandomCards = (props) => {
 
     useEffect(() => {
         fetch('https://api.betaseries.com/movies/random?key=e2bce90ed99c')
-        .then((resp) => resp.json())
-        .then((data) => {setData(data.movies)})
+            .then((resp) => resp.json())
+            .then((data) => { setData(data.movies) })
     }, [])
 
-    const fetchMovieAgain = () =>{
+    const fetchMovieAgain = () => {
         fetch('https://api.betaseries.com/movies/random?key=e2bce90ed99c')
-        .then((resp) => resp.json())
-        .then((data) => {setData(data.movies)})
+            .then((resp) => resp.json())
+            .then((data) => { setData(data.movies) })
     }
-    const setFavorite = (m) => {
-        props.addFavorite(m)
+    const setFavorite = () => {
+        alert("is Favorite")
+        // il faut ajouter le data du film dans un state et envoyer au parent
     }
 
     return (
@@ -29,17 +29,18 @@ const RandomCards = (props) => {
         <div>
             {
                 data != null &&
-                data.map(movie=>(
+                data.map(movie => (
                     <div key={movie.id}>
                         <h1>{movie.original_title}</h1>
-                        <img src={movie.poster} alt="poster"/>
-                        <InfoBtn/>
-                        <ChoixFilmButton handleNext={fetchMovieAgain} handleFavorite={(e)=>setFavorite(movie)}/>
-                
+                        <img src={movie.poster} alt="poster" />
+                        <ChoixFilmButton handleNext={fetchMovieAgain} handleFavorite={setFavorite} />
+
+
+
                     </div>
-                    
+
                 ))
-                
+
             }
         </div>
     )
