@@ -1,44 +1,35 @@
 import React from 'react';
 import Header from '../components/Header';
-import { useState, useEffect } from 'react';
 import '../components/StyleGeneral.css'
 import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
 import Button from '@material-ui/core/Button';
 import RandomCards from '../components/RandomCards';
+import Footer from '../components/Footer'
 
-const Home =() => {
-
-    const [favoriteFilm, setFavotireFilm] = useState([]);
-
+const Home = () => {
     return (
         <>
-            <Header/>
+            <Header />
             <div>
+                <p> Composant à integrer et integrer dedans le titre</p>
                 <h2 className='titleSection'>Random Top Trending</h2>
-                <div className="contentCards">
-                   <RandomCards addFavorite={(m)=>setFavotireFilm(m)}/>
-                   <RandomCards addFavorite={(m)=>setFavotireFilm(m)}/>
-                   <RandomCards addFavorite={(m)=>setFavotireFilm(m)}/>
+                <div className='contentCards'>
+                    <RandomCards />
+                    <RandomCards />
+                    <RandomCards />
                 </div>
-                {
-
-                   console.log(favoriteFilm)
-                }
-                <Button 
+            
+                <Button
                     variant="contained"
                     color="default"
                     className="greyBtn allBtn"
                     startIcon={<SwapHorizIcon />}
-                    >Tout changer
+                >Tout changer
                 </Button>
-                {
-                    favoriteFilm.length !== 0 &&
-                    <h2 className='titleSection'>Film favorites</h2>
-
-                }
+                <Footer />
             </div>
         </>
     )
 };
-  
+
 export default Home;
