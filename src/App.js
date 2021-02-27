@@ -9,10 +9,10 @@ function App() {
   return (
     <div className="App">
       <Switch>
-        <Route path='/' exact component={Home}/>
-        <Route path='/filtre' component={Filtre}/>
-        <Route path='/totalRandom' component={TotalRandom}/>
-        <Route path='/MaSelection' component={MaSelection}/>
+        <Route path='/' exact component={Home} />
+        <Route path='/filtre' component={Filtre} />
+        <Route path='/totalRandom' component={TotalRandom} />
+        <Route path='/MaSelection' component={MaSelection} />
       </Switch>
     </div>
   );
