@@ -8,4 +8,13 @@ body {
   color: white;
 }
 
-/*whiteBtn allBtn redBtn*/
+.contentCards {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.contentCards img {
+  height: auto;
+  width: 65%;
+  max-width: 350px;
+}

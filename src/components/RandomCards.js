@@ -18,9 +18,9 @@ const RandomCards = (props) => {
             .then((resp) => resp.json())
             .then((data) => { setData(data.movies) })
     }
-    const setFavorite = () => {
-        alert("is Favorite")
-        // il faut ajouter le data du film dans un state et envoyer au parent
+
+    const setFavorite = (m) => {
+        console.log(m)
     }
 
     return (
@@ -33,7 +33,8 @@ const RandomCards = (props) => {
                     <div key={movie.id}>
                         <h1>{movie.original_title}</h1>
                         <img src={movie.poster} alt="poster" />
-                        <ChoixFilmButton handleNext={fetchMovieAgain} handleFavorite={setFavorite} />
+                        <ChoixFilmButton handleNext={fetchMovieAgain} handleFavorite={(e)=>setFavorite(movie)} />
+
 
 
 

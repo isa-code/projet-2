@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from '../components/Header';
-import InfoBtn from '../components/InfoBtn';
 import '../components/StyleGeneral.css'
 import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
 import Button from '@material-ui/core/Button';
@@ -14,10 +13,11 @@ const Home = () => {
             <div>
                 <p> Composant à integrer et integrer dedans le titre</p>
                 <h2 className='titleSection'>Random Top Trending</h2>
-                <RandomCards />
-                <RandomCards />
-                <RandomCards />
-                <InfoBtn />
+                <div className='contentCards'>
+                    <RandomCards />
+                    <RandomCards />
+                    <RandomCards />
+                </div>
 
                 <Button
                     variant="contained"
