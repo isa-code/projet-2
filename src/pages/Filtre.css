@@ -1,0 +1,29 @@
+.chip {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 1px;
+    border-radius: 25px;
+    border: none;
+    padding: 5px 10px 5px 10px;
+    cursor: pointer;
+    min-width: 70px;
+    background-color: gray;
+}
+
+.MuiChip-label {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+}
+.filtreSection{
+    width: 45%;
+    text-align: center;
+    padding-left: 12px;
+    padding-right: 12px; 
+}
+.buttonText .MuiButton-label{
+    color: #efefef;
+    font-size: small;
+}
