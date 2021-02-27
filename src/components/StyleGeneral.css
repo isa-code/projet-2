@@ -77,6 +77,7 @@ div .btnInfo span {
     font-weight: bold;
     height: 40px;
     background-color: #F6F6F6;
+    margin: 30px 15px 30px 15px;
 }
 .choixFilm .btnChoisFilm:hover, .choixFilm .btnChoisFilmFav:hover {
     background-color: #504E50;
