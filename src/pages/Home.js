@@ -18,7 +18,7 @@ const Home = () => {
                     <RandomCards />
                     <RandomCards />
                 </div>
-            
+
                 <Button
                     variant="contained"
                     color="default"
