@@ -1,5 +1,7 @@
 
-
+.contentCards {
+    display: flex;
+}
 .header .allBtn {
     box-shadow: 5px 6px 10px rgba(0, 0, 0, 0.57);
     border-radius: 18px;
@@ -71,6 +73,14 @@ div .btnInfo span {
 }
 
 /* Button Choix Film */
+.choixFilm {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 150px;
+    margin-top: -30px;
+}
+
 .choixFilm .btnChoisFilm {
     box-shadow: 5px 6px 10px rgba(0, 0, 0, 0.57);
     border-radius: 20px;
@@ -85,13 +95,13 @@ div .btnInfo span {
 .choixFilm .btnChoisFilmFav {
     box-shadow: 5px 6px 10px rgba(0, 0, 0, 0.57);
     border-radius: 28px;
-    min-width: 56px !important;
+    min-width: 50px !important;
     font-weight: bold;
-    height: 56px !important;
+    height: 50px !important;
     color: #EE0202;
     background-color: #F6F6F6;
 }
 .choixFilm .btnChoisFilmFav .MuiSvgIcon-root{
-    font-size: 2.5em;
+    font-size: 2em;
     margin: 0;
 }

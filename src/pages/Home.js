@@ -11,11 +11,8 @@ const Home = () => {
         <>
             <Header />
             <div>
-                <p> Composant à integrer et integrer dedans le titre</p>
                 <h2 className='titleSection'>Random Top Trending</h2>
                 <div className='contentCards'>
-                    <RandomCards />
-                    <RandomCards />
                     <RandomCards />
                 </div>
 
