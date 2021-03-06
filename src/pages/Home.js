@@ -14,6 +14,8 @@ const Home = () => {
                 <h2 className='titleSection'>Random Top Trending</h2>
                 <div className='contentCards'>
                     <RandomCards />
+                    <RandomCards />
+                    <RandomCards />
                 </div>
 
                 <Button

@@ -13,8 +13,8 @@ import SansRanking from './SansRanking';
 const RandomCards = (props) => {
 
     const [data, setData] = useState([]);
-    const [randomFilm, setRandomFilm] = useState([]);
-    const randomNum = Math.floor(Math.random() * 21);
+    const [randomFilm, setRandomFilm] = useState(null);
+
     const genres = [
         { id: 28, name: "Action" },
         { id: 12, name: "Aventure" },
@@ -40,7 +40,7 @@ const RandomCards = (props) => {
     useEffect(() => {
         fetch('https://api.themoviedb.org/3/trending/movie/day?api_key=2f5db99c0d99450f670eee04fca7d32c')
             .then((resp) => resp.json())
-            .then((data) => { setData(data.results)})
+            .then((data) => { setFavorite(data.results)})
     }, [])
 
     const fetchMovieAgain = () => {
@@ -49,9 +49,17 @@ const RandomCards = (props) => {
             .then((data) => { setData(data.movies.Math.floor(Math.random() * 21)) })
     }
 
-    const setFavorite = (m) => {
-        console.log(m)
+    /* cette formule stoque les donnes de la api dans un tableau et genere un numero aletoire pour avoir un seule film */
+    const setFavorite = (data) => {
+        setData(data);
+        const min = 0;
+        const max = 19;
+        const rand = Math.floor(Math.random() * (max - min) + min);
+        const film = data[rand];
+        setRandomFilm(film);
     }
+
+    /* ça transforme les id des genres aux noms  */
     const getGenres = (idGenre) => {
         let genreName = [];
         for (let i = 0; i < idGenre.length; i++) {
@@ -64,6 +72,7 @@ const RandomCards = (props) => {
         return genreName.join(" - ");
     }
 
+    /* Pour generer les etoiles du Rannking à partir du la note */
     const getRanking = (note) => {
         console.log(note);
         let x = note;
@@ -85,29 +94,23 @@ const RandomCards = (props) => {
     return (
         <div className='cardBlock'>
             {
-                data.length != 0 &&
-                data.map(movie => (
-                    <div className='blockCardFilm'
-                        key={movie.id}>
-                        <CardFilm 
-                            title={movie.original_title}
-                            poster={'https://image.tmdb.org/t/p/w500/'+movie.poster_path}
-                            ranking={getRanking(movie.vote_average)}
-                            year={movie.release_date.slice(0,4)}
-                            genres={getGenres(movie.genre_ids)}
-                        />
-                        <ChoixFilmButton handleNext={fetchMovieAgain} handleFavorite={(e)=>setFavorite(movie)} />
+                randomFilm !== null &&
+                <div className='blockCardFilm'
+                    key={randomFilm.id}>
+                    <CardFilm 
+                        title={randomFilm.original_title}
+                        poster={'https://image.tmdb.org/t/p/w500/'+randomFilm.poster_path}
+                        ranking={getRanking(randomFilm.vote_average)}
+                        year={randomFilm.release_date.slice(0,4)}
+                        genres={getGenres(randomFilm.genre_ids)}
+                    />
+                    <ChoixFilmButton handleNext={fetchMovieAgain} handleFavorite={(e)=>props.setFavorite(randomFilm)} />
 
 
 
 
-                    </div>
-
-                ))
-
+                </div>
             }
-
-
         </div>
     )
 }
