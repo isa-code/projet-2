@@ -1,4 +1,3 @@
-import { Favorite } from '@material-ui/icons';
 import { useState, useEffect } from 'react';
 import ChoixFilmButton from "../components/ChoixFilmsButton.js";
 import CardFilm from '../components/cardFilm';
@@ -38,15 +37,15 @@ const RandomCards = (props) => {
     ];
 
     useEffect(() => {
-        fetch('https://api.themoviedb.org/3/trending/movie/day?api_key=2f5db99c0d99450f670eee04fca7d32c')
+        fetch('https://api.themoviedb.org/3/trending/movie/week?api_key=2f5db99c0d99450f670eee04fca7d32c&page=1')
             .then((resp) => resp.json())
             .then((data) => { setFavorite(data.results)})
     }, [])
 
     const fetchMovieAgain = () => {
-        fetch('https://api.themoviedb.org/3/movie/popular?api_key=0eb1560cadbbc71b973ed8f868ef57fa&language=en-US&page=1')
+        fetch('https://api.themoviedb.org/3/trending/movie/week?api_key=2f5db99c0d99450f670eee04fca7d32c&page=2')
             .then((resp) => resp.json())
-            .then((data) => { setData(data.movies.Math.floor(Math.random() * 21)) })
+            .then((data) => { setFavorite(data.results)})
     }
 
     /* cette formule stoque les donnes de la api dans un tableau et genere un numero aletoire pour avoir un seule film */
@@ -104,7 +103,7 @@ const RandomCards = (props) => {
                         year={randomFilm.release_date.slice(0,4)}
                         genres={getGenres(randomFilm.genre_ids)}
                     />
-                    <ChoixFilmButton handleNext={fetchMovieAgain} handleFavorite={(e)=>props.setFavorite(randomFilm)} />
+                    <ChoixFilmButton handleNext={fetchMovieAgain} handleFavorite={(e)=>props.addFavorite(randomFilm)} />
 
 
 
