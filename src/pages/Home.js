@@ -11,6 +11,7 @@ import FavCardFilm from '../components/FavCardFilm';
 const Home = () => {
 
     const [favFilms, setFavFilms] = useState([]);
+    const [restart, setRestart] = useState(false);
 
     function addFavorite(film) {
         if (favFilms.includes(film)) {
@@ -28,16 +29,17 @@ const Home = () => {
             <div>
                 <h2 className='titleSection'>Les plus populaires cette semaine</h2>
                 <div className='contentCards'>
-                    <RandomCards addFavorite={(film)=>addFavorite(film)} />
-                    <RandomCards addFavorite={(film)=>addFavorite(film)} />
-                    <RandomCards addFavorite={(film)=>addFavorite(film)} />
+                    <RandomCards reset={restart} addFavorite={(film)=>addFavorite(film)} />
+                    <RandomCards reset={restart} addFavorite={(film)=>addFavorite(film)} />
+                    <RandomCards reset={restart} addFavorite={(film)=>addFavorite(film)} />
                 </div>
 
                 <Button
                     variant="contained"
                     color="default"
-                    className="greyBtn allBtn"
+                    className="greyBtn allBtn toutChanger"
                     startIcon={<SwapHorizIcon />}
+                    onClick={()=>setRestart(!restart)}
                 >Tout changer
                 </Button>
                 {

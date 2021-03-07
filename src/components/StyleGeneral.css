@@ -115,6 +115,9 @@ div .btnInfo span {
     font-size: 2em;
     margin: 0;
 }
+.toutChanger {
+    margin-bottom: 30px !important;
+}
 
 /* Style Card Fav Film */
 .favCardFilm {
@@ -126,7 +129,7 @@ div .btnInfo span {
 }
 
 .favCardFilm img {
-    border-radius: 8px;
+    border-radius: 8px !important;
 }
 
 .favCardFilm .btnFavInfo {

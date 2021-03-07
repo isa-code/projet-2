@@ -43,7 +43,7 @@ const RandomCards = (props) => {
         fetch('https://api.themoviedb.org/3/trending/movie/week?api_key=2f5db99c0d99450f670eee04fca7d32c&page='+x)
             .then((resp) => resp.json())
             .then((data) => { setFavorite(data.results)})
-    }, [])
+    }, [props.reset])
 
     const fetchMovieAgain = () => {
         const min = 1;
@@ -76,6 +76,7 @@ const RandomCards = (props) => {
         };
         return genreName.join(" - ");
     }
+    
 
     /* Pour generer les etoiles du Rannking à partir du la note */
     const getRanking = (note) => {
