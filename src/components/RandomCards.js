@@ -37,13 +37,19 @@ const RandomCards = (props) => {
     ];
 
     useEffect(() => {
-        fetch('https://api.themoviedb.org/3/trending/movie/week?api_key=2f5db99c0d99450f670eee04fca7d32c&page=1')
+        const min = 1;
+        const max = 4;
+        const x = Math.floor(Math.random() * (max - min) + min);
+        fetch('https://api.themoviedb.org/3/trending/movie/week?api_key=2f5db99c0d99450f670eee04fca7d32c&page='+x)
             .then((resp) => resp.json())
             .then((data) => { setFavorite(data.results)})
     }, [])
 
     const fetchMovieAgain = () => {
-        fetch('https://api.themoviedb.org/3/trending/movie/week?api_key=2f5db99c0d99450f670eee04fca7d32c&page=2')
+        const min = 1;
+        const max = 5;
+        const x = Math.floor(Math.random() * (max - min) + min);
+        fetch('https://api.themoviedb.org/3/trending/movie/week?api_key=2f5db99c0d99450f670eee04fca7d32c&page='+x)
             .then((resp) => resp.json())
             .then((data) => { setFavorite(data.results)})
     }
@@ -73,15 +79,14 @@ const RandomCards = (props) => {
 
     /* Pour generer les etoiles du Rannking à partir du la note */
     const getRanking = (note) => {
-        console.log(note);
         let x = note;
-        if (x >= 9.5) {
+        if (x >= 9) {
             return <Ranking5/>
-        } else if (x >= 6.7){
+        } else if (x >= 7.5){
             return <Ranking4/>
-        } else if (x >= 4.7){
+        } else if (x >= 5){
             return <Ranking3/>
-        } else if (x >= 2.7){
+        } else if (x >= 3){
             return <Ranking2/>
         } else if (x >= 2){
             return <Ranking1/>
@@ -100,6 +105,7 @@ const RandomCards = (props) => {
                         title={randomFilm.original_title}
                         poster={'https://image.tmdb.org/t/p/w500/'+randomFilm.poster_path}
                         ranking={getRanking(randomFilm.vote_average)}
+                        rankingNote={randomFilm.vote_average}
                         year={randomFilm.release_date.slice(0,4)}
                         genres={getGenres(randomFilm.genre_ids)}
                     />

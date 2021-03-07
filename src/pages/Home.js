@@ -6,20 +6,27 @@ import Button from '@material-ui/core/Button';
 import RandomCards from '../components/RandomCards';
 import Footer from '../components/Footer';
 import { useState, useEffect } from 'react';
+import FavCardFilm from '../components/FavCardFilm';
 
 const Home = () => {
 
     const [favFilms, setFavFilms] = useState([]);
 
     function addFavorite(film) {
-        setFavFilms(favFilms => [...favFilms, film]);
+        if (favFilms.includes(film)) {
+            const selectId = favFilms.indexOf(film);
+            favFilms.splice(selectId, 1);
+        } else {
+            setFavFilms(favFilms => [...favFilms, film]);
+        }
         console.log(favFilms)
     }
+
     return (
         <>
             <Header />
             <div>
-                <h2 className='titleSection'>Random Top Trending</h2>
+                <h2 className='titleSection'>Les plus populaires cette semaine</h2>
                 <div className='contentCards'>
                     <RandomCards addFavorite={(film)=>addFavorite(film)} />
                     <RandomCards addFavorite={(film)=>addFavorite(film)} />
@@ -34,14 +41,24 @@ const Home = () => {
                 >Tout changer
                 </Button>
                 {
-                    favFilms.length != 0 &&
-                    favFilms.map(film => (
-                        <div key={film.id}>
-                            <p>{film.original_title}</p>
-                            <img src={'https://image.tmdb.org/t/p/w500/'+film.poster_path} />
-                        </div>
-                    ))
+                    favFilms.length !== 0 &&
+                    <h2 className='titleSection'>Coup de coeur</h2>
                 }
+                
+                <div className='contentCards'>
+                    {
+                        favFilms.length !== 0 &&
+                        
+                        favFilms.map(film => (
+                            <FavCardFilm 
+                                key={film.id}
+                                poster={'https://image.tmdb.org/t/p/w500/'+film.poster_path} 
+                            />
+                        ))
+                    }
+
+                </div>
+               
 
                 <Footer />
             </div>

@@ -15,6 +15,7 @@ export default function CardFilm(props) {
                 <div>
                     <div className='blockRanking'>
                       {props.ranking} 
+                      <p>{props.rankingNote}</p>
                     </div>
                     <p>{props.year}</p>
                     <p><small>{props.genres}</small></p>
