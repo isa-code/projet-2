@@ -14,13 +14,13 @@ const Home = () => {
     const [restart, setRestart] = useState(false);
 
     function addFavorite(film) {
-        if (favFilms.includes(film)) {
-            const selectId = favFilms.indexOf(film);
+        /*if (favFilms.includes(film)) {
+            /*const selectId = favFilms.indexOf(film);
             favFilms.splice(selectId, 1);
         } else {
             setFavFilms(favFilms => [...favFilms, film]);
-        }
-        console.log(favFilms)
+        } */
+        console.log(film)
     }
 
     return (

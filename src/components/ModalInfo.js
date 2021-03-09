@@ -1,66 +1,54 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Avatar from '@material-ui/core/Avatar';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemText from '@material-ui/core/ListItemText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
-import PersonIcon from '@material-ui/icons/Person';
-import AddIcon from '@material-ui/icons/Add';
-import Typography from '@material-ui/core/Typography';
-import { blue } from '@material-ui/core/colors';
-
-const emails = ['username@gmail.com', 'user02@gmail.com'];
-const useStyles = makeStyles({
-  avatar: {
-    backgroundColor: blue[100],
-    color: blue[600],
-  },
-});
-
+import { useState, useEffect } from 'react';
 
 function ModalInfo(props) {
-    const classes = useStyles();
-    const { onClose, selectedValue, open } = props;
   
-    const handleClose = () => {
-      onClose(selectedValue);
-    };
-  
-    const handleListItemClick = (value) => {
-      onClose(value);
-    };
-  
-    return (
-      <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
-        <DialogTitle id="simple-dialog-title">Set backup account</DialogTitle>
-        <List>
-          {emails.map((email) => (
-            <ListItem button onClick={() => handleListItemClick(email)} key={email}>
-              <ListItemAvatar>
-                <Avatar className={classes.avatar}>
-                  <PersonIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary={email} />
-            </ListItem>
-          ))}
-  
-          <ListItem autoFocus button onClick={() => handleListItemClick('addAccount')}>
-            <ListItemAvatar>
-              <Avatar>
-                <AddIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="Add account" />
-          </ListItem>
-        </List>
-      </Dialog>
-    );
+  const [infoFilm, SetInfoFilm] = useState(0);
+  const [watchProviders, SetWatchProviders] = useState(0)
+  const { onClose, selectedValue, open } = props;
+
+  const handleClose = () => {
+    onClose(selectedValue);
+  };
+
+  const handleListItemClick = (value) => {
+    onClose(value);
+  };
+
+  useEffect(()=>{
+    SetInfoFilm(props.infoFilm);
+    fetch('https://api.themoviedb.org/3/movie/'+ infoFilm.id +'/watch/providers?api_key=0eb1560cadbbc71b973ed8f868ef57fa')
+            .then((resp) => resp.json())
+            .then((data) => { getFRproviders(data.results)})
+  },[]);
+
+  const getFRproviders = (data) => {
+    SetWatchProviders(data);
+  };
+
+  return (
+    <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
+      <DialogTitle>{infoFilm.title}</DialogTitle>
+      
+      <img src={'https://image.tmdb.org/t/p/w400/'+infoFilm.backdrop_path}/>
+      <p>{infoFilm.overview}</p>
+      {
+        watchProviders !== 0 &&
+        console.log(watchProviders)
+        /*
+        watchProviders.flatrate.map((provider) => {
+          <div key={provider.id}>
+            <img src={'https://image.tmdb.org/t/p/w100/'+provider.logo_path}/>
+            <p>{provider.provider_name}</p>
+          </div>
+        })*/
+      }
+      
+    </Dialog>
+  );
 }
 
 export default ModalInfo;

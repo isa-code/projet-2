@@ -40,7 +40,7 @@ const RandomCards = (props) => {
         const min = 1;
         const max = 4;
         const x = Math.floor(Math.random() * (max - min) + min);
-        fetch('https://api.themoviedb.org/3/trending/movie/week?api_key=2f5db99c0d99450f670eee04fca7d32c&page='+x)
+        fetch('https://api.themoviedb.org/3/trending/movie/week?api_key=2f5db99c0d99450f670eee04fca7d32c&language=fr-FR&page='+x)
             .then((resp) => resp.json())
             .then((data) => { setFavorite(data.results)})
     }, [props.reset])
@@ -49,7 +49,7 @@ const RandomCards = (props) => {
         const min = 1;
         const max = 5;
         const x = Math.floor(Math.random() * (max - min) + min);
-        fetch('https://api.themoviedb.org/3/trending/movie/week?api_key=2f5db99c0d99450f670eee04fca7d32c&page='+x)
+        fetch('https://api.themoviedb.org/3/trending/movie/week?api_key=2f5db99c0d99450f670eee04fca7d32c&language=fr-FR&page='+x)
             .then((resp) => resp.json())
             .then((data) => { setFavorite(data.results)})
     }
@@ -109,8 +109,9 @@ const RandomCards = (props) => {
                         rankingNote={randomFilm.vote_average}
                         year={randomFilm.release_date.slice(0,4)}
                         genres={getGenres(randomFilm.genre_ids)}
+                        infoFilm={randomFilm}
                     />
-                    <ChoixFilmButton handleNext={fetchMovieAgain} handleFavorite={(e)=>props.addFavorite(randomFilm)} />
+                    <ChoixFilmButton handleNext={fetchMovieAgain} handleFavorite={()=>props.addFavorite(randomFilm)} />
 
 
 

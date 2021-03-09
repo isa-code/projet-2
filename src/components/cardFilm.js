@@ -20,7 +20,7 @@ export default function CardFilm(props) {
                     <p>{props.year}</p>
                     <p><small>{props.genres}</small></p>
                 </div>
-                <InfoBtn/> 
+                <InfoBtn infoFilm={props.infoFilm}/> 
           </div>
           
         </div>
