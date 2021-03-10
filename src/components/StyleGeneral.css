@@ -180,13 +180,13 @@ div .btnInfo span {
     display: flex;
     flex-wrap: wrap;
     text-align: center;
+    justify-content: space-around;
 }
 .casting p {
     font-size: 0.85em;
 }
 .casting div {
     max-width: 100px;
-    margin-left: 10px;
 }
 .casting img {
     width: 90px;

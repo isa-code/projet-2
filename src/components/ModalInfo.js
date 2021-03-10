@@ -50,7 +50,7 @@ function ModalInfo(props) {
         <div className='casting'>
           {
           casting !== null &&
-          casting.cast.map( actor => (
+          casting.cast.slice(0,5).map( actor => (
             <div key={actor.id}>
               <img src={'https://image.tmdb.org/t/p/w200/'+actor.profile_path} alt={'Portrait de '+ actor.name}/>
               <p>{actor.name}</p>
