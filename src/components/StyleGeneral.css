@@ -6,12 +6,13 @@
 .header .allBtn {
     box-shadow: 5px 6px 10px rgba(0, 0, 0, 0.57);
     border-radius: 18px;
-    width: 200px;
+    width: 180px;
     margin-left: 15px;
     font-weight: bold;
-    height: 44px;
-    
+    height: 35px;
+    margin-top: 15px;  
 }
+
 .header  a {
   text-decoration: none;  
 }
@@ -40,6 +41,7 @@ div .greyBtn {
     justify-content: space-around;
     align-items: flex-end;
     margin-bottom: 30px;
+    flex-wrap: wrap;
 }
 .header .slogan {
     text-align: left;
@@ -153,4 +155,56 @@ div .btnInfo span {
     color: #504E50;
     text-decoration-line: underline;
     margin-top: -3px;
+}
+
+/* Modal Style */
+.MuiPaper-root {
+    background-color: #272727 !important;
+    color: #F6F6F6 !important;   
+}
+.contentModal {
+    padding: 5px 20px 10px 20px;
+    margin: 0;
+}
+.contentModal h3 {
+    margin-top: 5px;
+    margin-bottom: 10px;
+} 
+.contentModal p {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 1em;
+} 
+.casting {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+}
+.casting p {
+    font-size: 0.85em;
+}
+.casting div {
+    max-width: 100px;
+    margin-left: 10px;
+}
+.casting img {
+    width: 90px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 0;
+}
+.contentModal .MuiButton-contained {
+    border-radius: 18px !important;
+    width: 180px;
+    margin-left: 180px;
+    margin-right: auto;
+    font-weight: bold !important;
+    height: 35px;
+    margin-top: -30px;  
+    margin-bottom: 0;
+}
+.contentModal .MuiButton-contained:hover {
+    color:#F6F6F6;
+    background-color: #EE0202;  
 }

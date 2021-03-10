@@ -14,6 +14,9 @@ const RandomCards = (props) => {
     const [data, setData] = useState([]);
     const [randomFilm, setRandomFilm] = useState(null);
 
+    const [watchProviders, SetWatchProviders] = useState(null)
+    const [casting, setCasting] = useState(null)
+
     const genres = [
         { id: 28, name: "Action" },
         { id: 12, name: "Aventure" },
@@ -62,7 +65,15 @@ const RandomCards = (props) => {
         const rand = Math.floor(Math.random() * (max - min) + min);
         const film = data[rand];
         setRandomFilm(film);
+        getCastings(film.id);
     }
+
+    const getCastings =(id) => {
+        fetch('https://api.themoviedb.org/3/movie/'+ id +'/credits?api_key=0eb1560cadbbc71b973ed8f868ef57fa&language=fr-FR')
+            .then((resp) => resp.json())
+            .then((data) => { setCasting(data)})
+    }
+
 
     /* ça transforme les id des genres aux noms  */
     const getGenres = (idGenre) => {
@@ -110,9 +121,9 @@ const RandomCards = (props) => {
                         year={randomFilm.release_date.slice(0,4)}
                         genres={getGenres(randomFilm.genre_ids)}
                         infoFilm={randomFilm}
+                        filmCasting={casting}
                     />
                     <ChoixFilmButton handleNext={fetchMovieAgain} handleFavorite={()=>props.addFavorite(randomFilm)} />
-
 
 
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
-import '../components/StyleGeneral.css'
+import '../components/StyleGeneral.css';
 import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
 import Button from '@material-ui/core/Button';
 import RandomCards from '../components/RandomCards';
@@ -20,7 +20,6 @@ const Home = () => {
         } else {
             setFavFilms(favFilms => [...favFilms, film]);
         } */
-        console.log(film)
     }
 
     return (

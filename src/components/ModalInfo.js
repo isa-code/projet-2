@@ -1,14 +1,16 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import Dialog from '@material-ui/core/Dialog';
 import { useState, useEffect } from 'react';
+import '../components/StyleGeneral.css'
 
 function ModalInfo(props) {
   
   const [infoFilm, SetInfoFilm] = useState(0);
-  const [watchProviders, SetWatchProviders] = useState(0)
   const { onClose, selectedValue, open } = props;
+  const casting = props.filmCasting;
+  const [watchProviders, SetWatchProviders] = useState(null)
 
   const handleClose = () => {
     onClose(selectedValue);
@@ -20,33 +22,43 @@ function ModalInfo(props) {
 
   useEffect(()=>{
     SetInfoFilm(props.infoFilm);
-    fetch('https://api.themoviedb.org/3/movie/'+ infoFilm.id +'/watch/providers?api_key=0eb1560cadbbc71b973ed8f868ef57fa')
+    /*fetch('https://api.themoviedb.org/3/movie/'+ infoFilm.id +'/credits?api_key=0eb1560cadbbc71b973ed8f868ef57fa&language=fr-FR')
             .then((resp) => resp.json())
-            .then((data) => { getFRproviders(data.results)})
+            .then((data) => { setCasting(data)})*/
   },[]);
 
-  const getFRproviders = (data) => {
-    SetWatchProviders(data);
-  };
 
   return (
     <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
-      <DialogTitle>{infoFilm.title}</DialogTitle>
+      <img src={'https://image.tmdb.org/t/p/original/'+infoFilm.backdrop_path}/>
       
-      <img src={'https://image.tmdb.org/t/p/w400/'+infoFilm.backdrop_path}/>
-      <p>{infoFilm.overview}</p>
-      {
-        watchProviders !== 0 &&
-        console.log(watchProviders)
-        /*
-        watchProviders.flatrate.map((provider) => {
-          <div key={provider.id}>
-            <img src={'https://image.tmdb.org/t/p/w100/'+provider.logo_path}/>
-            <p>{provider.provider_name}</p>
-          </div>
-        })*/
-      }
-      
+      <div className='contentModal'>
+        <div>
+          <Button 
+            variant="contained"
+            className="redBtn allBtn"
+            startIcon={<PlayCircleFilledIcon />}>
+              Regarder</Button>
+          <h3>{infoFilm.title}</h3>
+        </div>
+        <div className='blockRanking'>
+          {props.ranking} 
+          <p>{props.rankingNote}/10</p>
+        </div>
+        <p>{infoFilm.overview}</p>
+        <p><b>Casting :</b></p>
+        <div className='casting'>
+          {
+          casting !== null &&
+          casting.cast.map( actor => (
+            <div key={actor.id}>
+              <img src={'https://image.tmdb.org/t/p/w200/'+actor.profile_path} alt={'Portrait de '+ actor.name}/>
+              <p>{actor.name}</p>
+            </div>
+          ))
+          }
+        </div>
+      </div>  
     </Dialog>
   );
 }

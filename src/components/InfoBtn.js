@@ -26,7 +26,8 @@ export default function InfoBtn(props) {
             onClick={handleClickOpen}>
                 i
           </Button>
-          <ModalInfo open={open}  onClose={handleClose} infoFilm={props.infoFilm} />
+          <ModalInfo open={open}  onClose={handleClose} infoFilm={props.infoFilm} ranking={props.ranking}
+                        rankingNote={props.rankingNote} filmCasting={props.filmCasting}/>
         </div>
       );
 
