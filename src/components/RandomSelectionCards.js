@@ -14,10 +14,11 @@ const RandomSelectionCards = (props) => {
     const [data, setData] = useState([]);
     const [randomFilm, setRandomFilm] = useState(null);
 
-    const [watchProviders, SetWatchProviders] = useState(null)
-    const [casting, setCasting] = useState(null)
-    const [prefGenre, setPrefGenre] = useState("")
-    const [triePar, setTriePar]= useState("")
+    const [watchProviders, SetWatchProviders] = useState(null);
+    const [casting, setCasting] = useState(null);
+    const [prefGenre, setPrefGenre] = useState("");
+    const [triePar, setTriePar]= useState("");
+    const [url, setUrl]= useState("");
     
 
     const genres = [
@@ -42,26 +43,14 @@ const RandomSelectionCards = (props) => {
         { id: 37, name: "Western" }
     ];
 
-    const prefer = () => {
-        const genres = props.preferences.genresSelected;
-        const tri = props.preferences.sortBy;
-        if (genres.length === 0) {
-            setPrefGenre("") 
-        } else {
-            setPrefGenre("&with_genres="+genres.join(","))
-        };
-        if ( tri !== "") {
-            setTriePar ("&"+tri)
-        } 
-    
-    }
-    
-    const tri = triePar.toString();
-    const genre = prefGenre.toString();
     
     useEffect(() => {
-        prefer();
-        fetch('https://api.themoviedb.org/3/discover/movie?api_key=2f5db99c0d99450f670eee04fca7d32c&language=fr-FR'+{tri}+'&include_adult=false&include_video=false&page=1'+{genre})
+        const min = 1;
+        const max = 5;
+        const x = Math.floor(Math.random() * (max - min) + min);
+        const genres = props.preferences.genresSelected;
+        const tri = props.preferences.sortBy;
+        fetch('https://api.themoviedb.org/3/discover/movie?api_key=2f5db99c0d99450f670eee04fca7d32c&language=fr-FR'+tri+'&include_adult=false&include_video=false&page='+x+genres)
             .then((resp) => resp.json())
             .then((data) => { setFavorite(data.results)})
     }, [props.reset])
@@ -70,7 +59,9 @@ const RandomSelectionCards = (props) => {
         const min = 1;
         const max = 5;
         const x = Math.floor(Math.random() * (max - min) + min);
-        fetch('https://api.themoviedb.org/3/trending/movie/week?api_key=2f5db99c0d99450f670eee04fca7d32c&language=fr-FR&page='+x)
+        const genres = props.preferences.genresSelected;
+        const tri = props.preferences.sortBy;
+        fetch('https://api.themoviedb.org/3/discover/movie?api_key=2f5db99c0d99450f670eee04fca7d32c&language=fr-FR'+tri+'&include_adult=false&include_video=false&page='+x+genres)
             .then((resp) => resp.json())
             .then((data) => { setFavorite(data.results)})
     }
@@ -82,8 +73,12 @@ const RandomSelectionCards = (props) => {
         const max = 19;
         const rand = Math.floor(Math.random() * (max - min) + min);
         const film = data[rand];
-        setRandomFilm(film);
-        getCastings(film.id);
+        if (film !== null && film.backdrop_path !== null) {
+            setRandomFilm(film);
+            getCastings(film.id);  
+        } else {
+            setFavorite(data);
+        } 
     }
 
     const getCastings =(id) => {
@@ -132,7 +127,7 @@ const RandomSelectionCards = (props) => {
                 <div className='blockCardFilm'
                     key={randomFilm.id}>
                     <CardFilm 
-                        title={randomFilm.original_title}
+                        title={randomFilm.title}
                         poster={'https://image.tmdb.org/t/p/w500/'+randomFilm.poster_path}
                         ranking={getRanking(randomFilm.vote_average)}
                         rankingNote={randomFilm.vote_average}
@@ -142,11 +137,6 @@ const RandomSelectionCards = (props) => {
                         filmCasting={casting}
                     />
                     <ChoixFilmButton handleNext={fetchMovieAgain} handleFavorite={()=>props.addFavorite(randomFilm)} />
-
-                { /*
-                    console.log('https://api.themoviedb.org/3/discover/movie?api_key=2f5db99c0d99450f670eee04fca7d32c&language=fr-FR'+{tri}+'&include_adult=false&include_video=false&page=1'+{genre})
-                    */
-                }
 
                 </div>
             }

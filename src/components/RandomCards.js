@@ -114,7 +114,7 @@ const RandomCards = (props) => {
                 <div className='blockCardFilm'
                     key={randomFilm.id}>
                     <CardFilm 
-                        title={randomFilm.original_title}
+                        title={randomFilm.title}
                         poster={'https://image.tmdb.org/t/p/w500/'+randomFilm.poster_path}
                         ranking={getRanking(randomFilm.vote_average)}
                         rankingNote={randomFilm.vote_average}

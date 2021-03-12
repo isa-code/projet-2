@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../images/logo.svg';
 import '../components/StyleGeneral.css';
@@ -7,7 +7,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import './Filtre.css';
-import Footer from '../components/Footer'
 
 const Filtre = (props) => {
 
@@ -57,15 +56,17 @@ const Filtre = (props) => {
         let triePar = event.target.value;
         SetPreferenceFilm(triePar);
     };
-    const SendSelection =()=> {
-        if(selectedGenres.length == 0 && preferenceFilm == "") {
+    const SendSelection =()=> { 
+        if(selectedGenres.length === 0 && preferenceFilm === "") {
             return <p>Choix au moins 1 option</p>
         } else {
+        const genres = selectedGenres;
+        const tri = preferenceFilm;
         props.history.push({
             pathname:'/MaSelection',
             state:{
-                genresSelected:selectedGenres,
-                sortBy:preferenceFilm
+                genresSelected:"&with_genres="+genres,
+                sortBy:"&"+tri
             }
         })    
         }
@@ -91,7 +92,7 @@ const Filtre = (props) => {
                     <div className="MuiChip-label">
                         {
                             genres.map((genre) => (
-                                <button
+                                <button key={genre.id}
                                     className='chip'
                                     style={{ backgroundColor: selectedButton != true && 'gray' }}
                                     onClick={(event) => handleClick(genre.id, event)}
@@ -110,11 +111,8 @@ const Filtre = (props) => {
                     >
                     <option value=""></option>
                     <option value='sort_by=popularity.desc'>Les plus populaires</option>
-                    <option value="sort_by=popularity.asc">Les moins populaires</option>
                     <option value="sort_by=release_date.desc">Les plus recent</option>
-                    <option value="sort_by=release_date.asc">Les moins recent</option>
                     <option value="sort_by=vote_average.desc">Les mieux notés</option>
-                    <option value="sort_by=vote_average.asc">Les pires notes</option>
                     </Select>
                 </FormControl>
                 
@@ -127,12 +125,10 @@ const Filtre = (props) => {
                 >Voir ma selection
                 </Button>
                 {
-                    preferenceFilm == "" && selectedGenres.length == 0 &&
+                    preferenceFilm === "" && selectedGenres.length === 0 &&
                     <p>*Choix au moins 1 option</p>
                 }
             </div>
-            <Footer />
-           
         </>
     )
 };
