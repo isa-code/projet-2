@@ -55,7 +55,7 @@ const RandomSelectionCards = (props) => {
         } 
     
     }
-
+    
     const tri = triePar.toString();
     const genre = prefGenre.toString();
     
