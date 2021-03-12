@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import ChoixFilmButton from "../components/ChoixFilmsButton.js";
-import CardFilm from '../components/cardFilm';
+import ChoixFilmButton from "./ChoixFilmsButton.js";
+import CardFilm from './cardFilm';
 import './RandomCards.css';
 import Ranking5 from './Ranking5';
 import Ranking4 from './Ranking4';
@@ -9,13 +9,16 @@ import Ranking2 from './Ranking2';
 import Ranking1 from './Ranking1';
 import SansRanking from './SansRanking';
 
-const RandomTotalCards = (props) => {
+const RandomSelectionCards = (props) => {
 
     const [data, setData] = useState([]);
     const [randomFilm, setRandomFilm] = useState(null);
 
     const [watchProviders, SetWatchProviders] = useState(null)
     const [casting, setCasting] = useState(null)
+    const [prefGenre, setPrefGenre] = useState("")
+    const [triePar, setTriePar]= useState("")
+    
 
     const genres = [
         { id: 28, name: "Action" },
@@ -39,18 +42,33 @@ const RandomTotalCards = (props) => {
         { id: 37, name: "Western" }
     ];
 
+    const prefer = () => {
+        const genres = props.preferences.genresSelected;
+        const tri = props.preferences.sortBy;
+        if (genres.length === 0) {
+            setPrefGenre("") 
+        } else {
+            setPrefGenre("&with_genres="+genres.join(","))
+        };
+        if ( tri !== "") {
+            setTriePar ("&"+tri)
+        } 
+    
+    }
+
+    const tri = triePar.toString();
+    const genre = prefGenre.toString();
+    
     useEffect(() => {
-        const min = 1;
-        const max = 1000;
-        const x = Math.floor(Math.random() * (max - min) + min);
-        fetch('https://api.themoviedb.org/3/trending/movie/week?api_key=2f5db99c0d99450f670eee04fca7d32c&language=fr-FR&page='+x)
+        prefer();
+        fetch('https://api.themoviedb.org/3/discover/movie?api_key=2f5db99c0d99450f670eee04fca7d32c&language=fr-FR'+{tri}+'&include_adult=false&include_video=false&page=1'+{genre})
             .then((resp) => resp.json())
             .then((data) => { setFavorite(data.results)})
     }, [props.reset])
 
     const fetchMovieAgain = () => {
         const min = 1;
-        const max = 1000;
+        const max = 5;
         const x = Math.floor(Math.random() * (max - min) + min);
         fetch('https://api.themoviedb.org/3/trending/movie/week?api_key=2f5db99c0d99450f670eee04fca7d32c&language=fr-FR&page='+x)
             .then((resp) => resp.json())
@@ -125,7 +143,10 @@ const RandomTotalCards = (props) => {
                     />
                     <ChoixFilmButton handleNext={fetchMovieAgain} handleFavorite={()=>props.addFavorite(randomFilm)} />
 
-
+                { /*
+                    console.log('https://api.themoviedb.org/3/discover/movie?api_key=2f5db99c0d99450f670eee04fca7d32c&language=fr-FR'+{tri}+'&include_adult=false&include_video=false&page=1'+{genre})
+                    */
+                }
 
                 </div>
             }
@@ -133,4 +154,4 @@ const RandomTotalCards = (props) => {
     )
 }
 
-export default RandomTotalCards;
+export default RandomSelectionCards;

@@ -3,7 +3,7 @@
     display: flex;
     flex-wrap: wrap;
 }
-.header .allBtn {
+.header .allBtn, .filtreContent .allBtn {
     box-shadow: 5px 6px 10px rgba(0, 0, 0, 0.57);
     border-radius: 18px;
     width: 180px;
@@ -13,11 +13,11 @@
     margin-top: 15px;  
 }
 
-.header  a {
+.header  a, .filtreContent a {
   text-decoration: none;  
 }
 
-.header .redBtn {
+.header .redBtn, .filtreContent .redBtn{
     background-color: #EE0202;
 }
 

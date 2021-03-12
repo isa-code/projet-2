@@ -3,23 +3,17 @@ import { Link } from 'react-router-dom';
 import Logo from '../images/logo.svg';
 import '../components/StyleGeneral.css';
 import Button from '@material-ui/core/Button';
-import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
-import Chip from '@material-ui/core/Chip';
 import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import './Filtre.css';
-import axios from 'axios';
-import ClearIcon from '@material-ui/icons/Clear';
-import DoneIcon from '@material-ui/icons/Done';
-
 import Footer from '../components/Footer'
 
-const Filtre = () => {
+const Filtre = (props) => {
 
     const [selectedButton, setSelectedButton] = useState(false);
     const [selectedGenres, setSelectedGenres] = useState([]);
+    const [preferenceFilm, SetPreferenceFilm] = useState("");
 
     const genres = [
         { id: 28, name: "Action" },
@@ -53,13 +47,32 @@ const Filtre = () => {
             selectedGenres.push(id);
             event.target.style.backgroundColor = '#EFEFEF';
         }
-        console.log(selectedGenres);
+        setSelectedGenres(selectedGenres);
     }
-    const restarGenres = () => {
-        setSelectedGenres([]);
-        setSelectedButton(true);
+    const [state, setState] = React.useState({
+        checkedA: true,
+        checkedB: true,
+      });
+    const handleChange = (event) => {
+        let triePar = event.target.value;
+        SetPreferenceFilm(triePar);
+    };
+    const SendSelection =()=> {
+        if(selectedGenres.length == 0 && preferenceFilm == "") {
+            return <p>Choix au moins 1 option</p>
+        } else {
+        props.history.push({
+            pathname:'/MaSelection',
+            state:{
+                genresSelected:selectedGenres,
+                sortBy:preferenceFilm
+            }
+        })    
+        }
+        
     }
 
+    
     return (
         <>
             <div className='header'>
@@ -70,14 +83,6 @@ const Filtre = () => {
                         <img src={Logo} alt='logo Mov(i)e Tender' />
                     </Link>
                 </div>
-                <Link to={'/totalRandom'}>
-                    <Button
-                        color="secondary"
-                        variant="contained"
-                        className="redBtn allBtn"
-                    >Total Random
-                    </Button>
-                </Link>
             </div>
             <h2 className='titleSection'>Filtre</h2>
             <div className='filtreContent'>
@@ -93,22 +98,41 @@ const Filtre = () => {
                                 >{genre.name}</button>
 
                             ))}
-
                     </div>
-                    <Button
-                        className="buttonText"
-                        startIcon={<ClearIcon />}
-                        onClick={restarGenres}
-                    >Recomencer</Button>
+                    
                 </div>
-
-                <Footer />
-
+                <div className='filtreSection'>
+                <p>Préférences de recherche</p>
+                <FormControl variant="filled"  className="">
+                    <InputLabel >Les films ...</InputLabel>
+                    <Select native
+                    onChange={handleChange}
+                    >
+                    <option value=""></option>
+                    <option value='sort_by=popularity.desc'>Les plus populaires</option>
+                    <option value="sort_by=popularity.asc">Les moins populaires</option>
+                    <option value="sort_by=release_date.desc">Les plus recent</option>
+                    <option value="sort_by=release_date.asc">Les moins recent</option>
+                    <option value="sort_by=vote_average.desc">Les mieux notés</option>
+                    <option value="sort_by=vote_average.asc">Les pires notes</option>
+                    </Select>
+                </FormControl>
+                
+                </div>
+                <Button
+                    color="secondary"
+                    variant="contained"
+                    className="redBtn allBtn"
+                    onClick={()=>SendSelection()}
+                >Voir ma selection
+                </Button>
+                {
+                    preferenceFilm == "" && selectedGenres.length == 0 &&
+                    <p>*Choix au moins 1 option</p>
+                }
             </div>
-            {
-
-                console.log(selectedGenres)
-            }
+            <Footer />
+           
         </>
     )
 };

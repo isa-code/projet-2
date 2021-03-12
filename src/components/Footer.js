@@ -14,7 +14,7 @@ const Footer = () => {
                     <img src={Logo} alt='logo Mov(i)e Tender' className='footer-logo' />
 
                 </Link>
-                <p className='p-footer'>© Tout droit réservé 2021 <br /> Isabelle, Marie, Mayte et Tom</p>
+                <p className='p-footer'>© Tous droits réservés 2021 <br /> Isabelle, Marie, Mayte et Tom</p>
             </div>
 
 

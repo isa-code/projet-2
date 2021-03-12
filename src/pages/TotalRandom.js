@@ -15,7 +15,6 @@ const TotalRandom = () => {
     return (
         <>
             <Header />
-            <p> Composant à integrer et integrer dedans le titre</p>
             <h2 className='titleSection'>Total Random</h2>
             <div className='contentCards'>
                     <RandomTotalCards reset={restart} addFavorite={false} />
