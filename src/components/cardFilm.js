@@ -1,15 +1,27 @@
-import React from 'react';
-import '../components/StyleGeneral.css';
-import InfoBtn from '../components/InfoBtn';
-import './RandomCards.css';
+import React from "react";
+import "../components/StyleGeneral.css";
+import InfoBtn from "../components/InfoBtn";
+import "./RandomCards.css";
 
 export default function CardFilm(props) {
+  const titleFilm = props.title;
+  const rankingFilm = props.ranking;
+  const rankingNoteFilm = props.rankingNote;
 
+  return (
+    <div className="cardFilm">
+      <img src={props.poster} alt={titleFilm} />
+      <div className="blocktexte">
+        <div>
+          <p>{titleFilm}</p>
 
+          <div className="blockRanking">
+            {rankingFilm}
+            <p>{rankingNoteFilm}/10</p>
+          </div>
 
-    const titleFilm = props.title;
-    const rankingFilm = props.ranking;
-    const rankingNoteFilm = props.rankingNote;
+          <p>{props.year}</p>
+
 
     return (
         <div className="cardFilm">
@@ -28,7 +40,15 @@ export default function CardFilm(props) {
             </div>
             <p><small>{props.genres}</small></p> 
           </div>
-          
+         
         </div>
-    );
+        <InfoBtn
+          infoFilm={props.infoFilm}
+          ranking={rankingFilm}
+          rankingNote={rankingNoteFilm}
+          filmCasting={props.filmCasting}
+        />
+      </div>
+    </div>
+  );
 }

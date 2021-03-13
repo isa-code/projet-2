@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Header from '../components/Header';
 import '../components/StyleGeneral.css';
@@ -16,18 +17,27 @@ const Home = (props) => {
     function addFavorite(film) {
         props.addFavFilm(film)
     }
+  }
 
-    return (
-        <>
-            <Header />
-            <div>
-                <h2 className='titleSection'>Les plus populaires cette semaine</h2>
-                <div className='contentCards'>
-                    <RandomCards reset={restart} addFavorite={(film)=>addFavorite(film)} />
-                    <RandomCards reset={restart} addFavorite={(film)=>addFavorite(film)} />
-                    <RandomCards reset={restart} addFavorite={(film)=>addFavorite(film)} />
-                </div>
-
+  return (
+    <>
+      <Header />
+      <div>
+        <h2 className="titleSection">Les plus populaires cette semaine</h2>
+        <div className="contentCards">
+          <RandomCards
+            reset={restart}
+            addFavorite={(film) => addFavorite(film)}
+          />
+          <RandomCards
+            reset={restart}
+            addFavorite={(film) => addFavorite(film)}
+          />
+          <RandomCards
+            reset={restart}
+            addFavorite={(film) => addFavorite(film)}
+          />
+        </div>
                 <Button
                     variant="contained"
                     color="default"
