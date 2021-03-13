@@ -98,46 +98,29 @@ const RandomCards = (props) => {
         }
       }
     }
-    return genreName.join(" - ");
-  };
 
-  /* Pour generer les etoiles du Rannking à partir du la note */
-  const getRanking = (note) => {
-    let x = note;
-    if (x >= 9) {
-      return <Ranking5 />;
-    } else if (x >= 7.5) {
-      return <Ranking4 />;
-    } else if (x >= 5) {
-      return <Ranking3 />;
-    } else if (x >= 3) {
-      return <Ranking2 />;
-    } else if (x >= 2) {
-      return <Ranking1 />;
-    } else {
-      return <SansRanking />;
-    }
-  };
+    return (
+        <div className='cardBlock'>
+            {
+                randomFilm !== null &&
+                <div className='blockCardFilm'
+                    key={randomFilm.id}>
+                    <CardFilm 
+                        title={randomFilm.title}
+                        poster={'https://image.tmdb.org/t/p/w500/'+randomFilm.poster_path}
+                        ranking={getRanking(randomFilm.vote_average)}
+                        rankingNote={randomFilm.vote_average}
+                        year={randomFilm.release_date.slice(0,4)}
+                        genres={getGenres(randomFilm.genre_ids)}
+                        infoFilm={randomFilm}
+                        filmCasting={casting}
+                    />
+                    <ChoixFilmButton handleNext={fetchMovieAgain} handleFavorite={()=>props.addFavorite(randomFilm)} />
 
-  return (
-    <div className="cardBlock">
-      {randomFilm !== null && (
-        <div className="blockCardFilm" key={randomFilm.id}>
-          <CardFilm
-            title={randomFilm.title}
-            poster={"https://image.tmdb.org/t/p/w500/" + randomFilm.poster_path}
-            ranking={getRanking(randomFilm.vote_average)}
-            rankingNote={randomFilm.vote_average}
-            year={randomFilm.release_date.slice(0, 4)}
-            genres={getGenres(randomFilm.genre_ids)}
-            infoFilm={randomFilm}
-            filmCasting={casting}
-          />
-          <ChoixFilmButton
-            handleNext={fetchMovieAgain}
-            handleFavorite={() => props.addFavorite(randomFilm, casting)}
-            // handleRemoveFavorite={() => props.removeFavorite(randomFilm)}
-          />
+
+
+                </div>
+            }
         </div>
       )}
     </div>

@@ -60,20 +60,18 @@ function ModalInfo(props) {
           <p>{props.rankingNote}/10</p>
         </div>
         <p>{infoFilm.overview}</p>
-        <p>
-          <b>Casting :</b>
-        </p>
-        <div className="casting">
-          {casting !== null &&
-            casting.cast.slice(0, 5).map((actor) => (
-              <div key={actor.id}>
-                <img
-                  src={"https://image.tmdb.org/t/p/w200/" + actor.profile_path}
-                  alt={"Portrait de " + actor.name}
-                />
-                <p>{actor.name}</p>
-              </div>
-            ))}
+
+        <p><b>Casting :</b></p>
+        <div className='casting'>
+          {
+          casting !== null &&
+          casting.cast.slice(0,5).map( actor => (
+            <div key={actor.id}>
+              <img src={'https://image.tmdb.org/t/p/w200/'+actor.profile_path} alt={'Portrait de '+ actor.name}/>
+              <p>{actor.name}</p>
+            </div>
+          ))
+          }
         </div>
       </div>
     </Dialog>
